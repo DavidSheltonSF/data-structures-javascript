@@ -68,6 +68,7 @@ class BinaryTree{
     return this.findRecursive(this.root, value);
   }
 
+  // Find the node more to the right
   findGreater(root){
     if (!root.right){
       return root
@@ -76,11 +77,17 @@ class BinaryTree{
   }
 
   deleteRecursive(root, value){
+    /*
+      Se o nó que será deletado possuir filhos, então
+      ele será substituído pelo nó que estiver mais a direita (maior nó) da
+      árvore do filho esquerdo do nó que será deletado.
+    */
 
     if(!root){
       return null;
     }
 
+    // The value is less than or greather than the root?
     if(value < root.value){
       root.left = this.deleteRecursive(root.left, value);
     }
@@ -88,6 +95,7 @@ class BinaryTree{
       root.right = this.deleteRecursive(root.right, value)
     }
 
+    // If the value is equal to the root value
     else {
 
       // Check if root have no children
@@ -103,6 +111,7 @@ class BinaryTree{
         return temp;
       }
       
+
       temp = this.findGreater(root.left);
       root.value = temp.value;
       root.left = this.deleteRecursive(root.left, temp.value);
